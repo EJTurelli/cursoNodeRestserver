@@ -4,6 +4,12 @@ process.env.PORT = process.env.PORT || 3000;
 // ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+// SEMILLA DE TOKEN
+process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'Esta-es-la-semilla-de-desarrollo';
+
+// VENCIMIENTO
+process.env.TOKEN_EXP = '31d';
+
 // BASE DE DATOS
 let urlDB = null;
 

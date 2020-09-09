@@ -5,10 +5,12 @@ const _ = require('underscore');
 
 const Usuario = require('../models/usuario');
 
+const { verificaToken, verificaAdminRol } = require('../middlewares/autenticacion');
+
 const app = express();
 
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificaToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -28,7 +30,7 @@ app.get('/usuario', function(req, res) {
                 });
             }
 
-            Usuario.count({ estado: true }, (err, conteo) => {
+            Usuario.countDocuments({ estado: true }, (err, conteo) => {
 
                 return res.json({
                     ok: true,
@@ -39,7 +41,7 @@ app.get('/usuario', function(req, res) {
         });
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificaToken, verificaAdminRol], function(req, res) {
 
     let body = req.body;
 
@@ -69,7 +71,7 @@ app.post('/usuario', function(req, res) {
 
 });
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdminRol], function(req, res) {
 
     const id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'rol', 'estado']);
@@ -127,7 +129,7 @@ app.put('/usuario/:id', function(req, res) {
 
 
 // Cambio el estado a false
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdminRol], function(req, res) {
 
     const id = req.params.id;
     const borrar = { estado: false };
