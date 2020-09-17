@@ -94,7 +94,7 @@ app.put('/usuario/:id', [verificaToken, verificaAdminRol], function(req, res) {
             ok: true,
             usuario: usuarioDB
         });
-    })
+    });
 });
 
 // Borra literal

@@ -8,7 +8,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'Esta-es-la-semilla-de-desarrollo';
 
 // VENCIMIENTO
-process.env.TOKEN_EXP = '31d';
+process.env.TOKEN_EXP = '3d';
 
 // BASE DE DATOS
 let urlDB = null;

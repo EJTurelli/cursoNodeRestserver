@@ -80,9 +80,9 @@ async function verify(token) {
 
 app.post('/google', async function(req, res) {
 
-    let token = req.body.idtoken;
+    let tokenGoogle = req.body.idtoken;
 
-    let googleUser = await verify(token)
+    let googleUser = await verify(tokenGoogle)
         .catch(err => {
             return res.status(403).json({
                 ok: false,
@@ -142,6 +142,10 @@ app.post('/google', async function(req, res) {
                         message: err
                     });
                 }
+
+                let token = jwt.sign({
+                    usuario: usuarioDB
+                }, process.env.TOKEN_SEED, { expiresIn: process.env.TOKEN_EXP });
 
                 return res.json({
                     ok: true,
